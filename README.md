@@ -41,7 +41,7 @@ There are 3 skins
 
 Before user response
 
-![connect-poll-current-0](images/connect-poll-current-0.png)
+![connect-poll-current-0](../master/images/connect-poll-current-0.png?raw=TRUE)
 
 After user response
 
