@@ -47,14 +47,14 @@ There are 3 skins
 
 Before user response
 
-![Current Poll](images/connect-poll-current-0.png?raw=true)
+![Current Poll](images/_connect-poll-current-0.png?raw=true)
 
 After user response
 
-![Connect Poll Response](/../master/images/connect-poll-current-1.png?raw=true)
+![Connect Poll Response](images/_connect-poll-current-1.png?raw=true)
 
 #### Connect-Poll-Archive
 
-![connect-poll-archive](blob/master/images/connect-poll-archive.png)
+![connect-poll-archive](images/_connect-poll-archive.png?raw=true)
 
 > Connect-Poll-Response is displayed in the archive grid above 
