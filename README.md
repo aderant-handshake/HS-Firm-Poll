@@ -49,7 +49,7 @@ After user response
 
 #### Connect-Poll-Archive
 
-![connect-poll-archive](../master/images/connect-poll-archive.png?raw=TRUE)
+![connect-poll-archive](blob/master/images/connect-poll-archive.png)
 
 > Connect-Poll-Response is displayed in the archive grid above 
 
