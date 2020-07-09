@@ -41,11 +41,11 @@ There are 3 skins
 
 Before user response
 
-![Current Poll](./images/connect-poll-current-0.png)
+![Current Poll](images/connect-poll-current-0.png)
 
 After user response
 
-![connect-poll-current-1](../master/images/connect-poll-current-1.png?raw=TRUE)
+![Connect Poll Response](/../master/images/connect-poll-current-1.png?raw=true)
 
 #### Connect-Poll-Archive
 
