@@ -1,7 +1,7 @@
 # Connect Poll Solution
 
 ## Summary 
-This solution provides a way for a firm to diplay a simple multiple-choice question on a page. The user can choose an available answer to that question.  Once they hae answered the question, they will see the firm wide results.  As the page is refreshed they will see updated answers to the current poll. 
+This solution provides a way for a firm to diplay a simple multiple-choice question on a page. The user can choose an available answer to that question.  Once they have answered the question, they will see the firm wide results.  As the page is refreshed they will see updated answers to the current poll. 
 
 ## Components 
 
@@ -41,7 +41,7 @@ There are 3 skins
 
 Before user response
 
-![Current Poll](images/connect-poll-current-0.png)
+![Current Poll](images/connect-poll-current-0.png?raw=true)
 
 After user response
 
