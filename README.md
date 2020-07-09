@@ -45,11 +45,11 @@ Before user response
 
 After user response
 
-![connect-poll-current-1](images/connect-poll-current-1.png)
+![connect-poll-current-1](../master/images/connect-poll-current-1.png?raw=TRUE)
 
 #### Connect-Poll-Archive
 
-![connect-poll-archive](images/connect-poll-archive.png)
+![connect-poll-archive](../master/images/connect-poll-archive.png?raw=TRUE)
 
 > Connect-Poll-Response is displayed in the archive grid above 
 
