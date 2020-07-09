@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<page class="Connect-Polls" title="Connect-Polls-Response" intake="{pollguid}" modified_by="steve.mchargue" cacheduration="0" cachetime="0">
+  <description><![CDATA[Display the results of a single firm poll]]></description>
+  <scripts />
+  <hiddencontrols />
+  <body type="standardbody">
+    <div class="panel">
+      <div style="display:inline-block">
+        <html5listview showpagerinfo="1" pagershowpagebuttons="1" pagerpreviousnext="1" name="pollresults" navigatable="0" mpinfo="RNConnect_PollDetails!&lt;ALL&gt;" filters="@PollGUID={PollGuid}" sort="responseTotal desc,SortOrder,Title" OnInitialize="ds.transport.options.read.data.hsr = new Date().valueOf();" columns="spUniqueID,Title,PollGUID,responseTotal,SortOrder" pagershowinput="0" pagershowpagesizes="0" pagerrefresh="0" templatename="pollresult" style="display:grid; grid-template-columns: repeat(3,1fr)" />
+      </div>
+      <div id="SkinCodeBlock">
+        <html5template name="pollresult" nativeencoding="1">
+          <embeddedhtml><![CDATA[<div class="list-group-item">
+  	<div class="label-circle bg-success" >#:responsetotal#</div>
+	<div>#:title#</div>
+</div>]]></embeddedhtml>
+        </html5template>
+      </div>
+    </div>
+  </body>
+</page>

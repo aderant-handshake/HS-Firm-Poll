@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<page class="Connect-Polls" title="Connect-Polls-Current" intake="{caguid}" modified_by="steve.mchargue" cacheduration="0" cachetime="0">
+  <description><![CDATA[Participate and see the results of various firm polls]]></description>
+  <scripts />
+  <hiddencontrols>
+    <getresultset allowupdate="N" cols="Title,IsCurrent,PollDateStart,PollDateEnd,PollGuid,totalResponses" filters="@IsCurrent=1 " mpinfo="RNConnect_PollMaster!&lt;ALL&gt;" maxrows="1" name="currpoll" sort="PollDateStart desc" notes="Get the current poll, if there is more than one current get the newest current. Content Audience GUID is optional " providedvalues="pollid=PollGuid" />
+    <getresultset allowupdate="N" notes="Get the user's previous response to this poll, if any" condition="{=currpoll.recordCount}" name="userresp" cols="KeyValue" filters="@ClassName={=currpoll.PollGuid} AND HSUserID={USER_ID} and KeyValue &lt;&gt; ''" mpinfo="RNHSItemLists!&lt;ALL&gt;" maxrows="1" providedvalues="respid=KeyValue" />
+  </hiddencontrols>
+  <body type="standardbody">
+    <div class="panel" condition="{=currpoll.recordcount}" id="PollContainer" notes="Display the top div if and only if there is a current poll found">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <div class="h4" text="{=currpoll.title}" />
+        </div>
+        <div class="panel-subtitle" text="Poll ends {=FormatDate(currpoll.polldateend,&quot;dddd, MMMM d yyyy&quot;)}.{=IF(currpoll.totalresponses &gt; 1,&quot; There are currently &quot; + format(currpoll.totalresponses,&quot;n0&quot;) + &quot; responses.&quot;,&quot;&quot;)}" />
+      </div>
+      <div class="panel-body">
+        <html5listview showpagerinfo="1" pagershowpagebuttons="1" pagerpreviousnext="1" name="pollresponses" navigatable="0" mpinfo="RNConnect_PollDetails!&lt;ALL&gt;" filters="@PollGUID={=currpoll.PollGuid}" sort="SortOrder,Title" OnInitialize="ds.transport.options.read.data.hsr = new Date().valueOf();" columns="spUniqueID,Title,PollGUID" pagershowinput="0" pagershowpagesizes="0" pagerrefresh="0" templatename="pollquestion" class="list-group" condition="{=userresp.recordcount} = 0" />
+        <html5listview showpagerinfo="1" pagershowpagebuttons="1" pagerpreviousnext="1" name="pollresults" navigatable="0" mpinfo="RNConnect_PollDetails!&lt;ALL&gt;" filters="@PollGUID={=currpoll.PollGuid}" sort="responseTotal desc,SortOrder,Title" OnInitialize="ds.transport.options.read.data.hsr = new Date().valueOf();" columns="spUniqueID,Title,PollGUID,responseTotal,SortOrder" pagershowinput="0" pagershowpagesizes="0" pagerrefresh="0" templatename="pollresult" condition="{=userresp.recordcount} &gt; 0" />
+      </div>
+      <div class="panel-footer">
+        <a class="button" text="Submit" onclick="SubmitPollResults(1)" condition="{=userresp.recordcount} = 0" />
+        <a class="button" text="Reset My Response" onclick="SubmitPollResults(0)" condition="{=userresp.recordcount} &gt; 0" />
+        <div id="submiterror" class="pull-right label label-warning hidden" text="Please, make a selection first and then click submit."></div>
+      </div>
+      <div id="SkinCodeBlock">
+        <html5template name="pollquestion" nativeencoding="1">
+          <embeddedhtml><![CDATA[<div class="list-group-item">
+	<div class="radio">
+      <label>
+          <input type="radio" name="Poll" id="#:spuniqueid#" value="#:spuniqueid#">
+          #:title#
+      </label>
+	</div>
+</div>]]></embeddedhtml>
+        </html5template>
+        <html5template name="pollresult" nativeencoding="1">
+          <embeddedhtml><![CDATA[<div class="list-group-item">
+  	<div class="label-circle bg-success" >#:responsetotal#</div>
+	<div>#:title#</div>
+</div>]]></embeddedhtml>
+        </html5template>
+        <div notes="Code to support submitting and clearing a user response to the current poll" id="poll_clientsidecode">
+          <embeddedhtml><![CDATA[<script>
+	  
+			function SubmitPollResults(save) {
+
+				function _refreshWithDelay(elem,delay) {
+					delay = delay || 1500;
+					jQuery(elem).css('opacity','0.25');
+					var animationdiv = HSShowLoadingAnimation(elem, 10);
+					setTimeout( function() {
+						HSRemoveLoadingAnimation(animationdiv);
+						HSRefreshWebPart(elem);
+					}, delay);	
+				}
+									
+				var pollContainer = "#PollContainer";
+				var recordType = "PollResponse";
+				var elem = jQuery(pollContainer).get(0);
+				
+				// note, if the skin element doesn't contain poll_id, then it is becuase this was called in a render skin. 
+				// and so it is in the top most parent elem, if so get the values from the top most skin element.
+				if (!elem.hasAttribute('_hs_pollid')) {
+					elem = jQuery(elem).closest('[_hs_pollid]').get(0);
+				}
+				if (elem) {
+					var poll_id = HSGetProperty(elem, 'pollid');  // published from the currpoll get result set 
+					var resp_id = HSGetProperty(elem, 'respid');  // published from the userresp get result set, if any
+				}
+				
+				// get original poll container 
+				var elem = jQuery(pollContainer).get(0);
+				if (poll_id) {				
+					if (save) {
+						var resp_id = jQuery('input[name=Poll]:checked', pollContainer).val();
+						if (resp_id) {
+							HSAddToItemLists(recordType, poll_id, resp_id, "");
+							_refreshWithDelay(elem);
+						} else {
+							jQuery('#submiterror').removeClass('hidden');
+						}
+					} else { // clear the user's previous choice 
+						HSRemoveFromItemLists(recordType, poll_id, resp_id);
+						_refreshWithDelay(elem)
+					}
+				} else {
+					alert('encounted unexpected error, no poll_id found...');
+				}
+			}			
+		</script>]]></embeddedhtml>
+        </div>
+      </div>
+    </div>
+  </body>
+</page>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<page class="Connect-Polls" title="Connect-Polls-Archive" modified_by="steve.mchargue" cacheduration="0" cachetime="0">
+  <description><![CDATA[see the results of all polls]]></description>
+  <scripts />
+  <hiddencontrols />
+  <body type="standardbody">
+    <div class="panel ">
+      <div class="panel-heading">
+        <div class="pane-title" text="Polls Archive" />
+      </div>
+      <div class="panel-body">
+        <html5grid name="cp" mpinfo="RNConnect_PollMaster!&lt;ALL&gt;" sort="PollDateStart desc" additionalcolumns="PollGuid" automaticrefresh="0" allowsavepreferences="0" hidescrollbar="0">
+          <columns.Column field="Title" title="Poll" width="25%" />
+          <columns.HandshakeSkinColumn field="PollGuid" handshakeskin="Connect-Polls-Response" title="Poll Results" />
+        </html5grid>
+      </div>
+    </div>
+  </body>
+</page>

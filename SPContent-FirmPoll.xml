@@ -1,0 +1,37 @@
+<Portal url="http://vmpshss07" DefaultListGuruPrefix = "Connect_" DefaultTermStore="Managed Metadata Service" DefaultSiteColumnGroup="Handshake Connect Site Columns" DefaultContentTypeGroup="Handshake Connect Content Types">
+
+    <Usage Summary="Create Content Types/List for Connect Polling Solution. By Default 2 Lists will be created in the root site and the assumptoin is the Persona Groups taxonomy from Connect exists">
+    </Usage>
+
+
+    <SiteColumns>
+        <Field DisplayName="Poll Start Date" StaticName="hcpPollDateStart" Name="hcpPollDateStart" ID="#guid#" Group="#groupname#" Type="DateTime" Format="DateOnly">
+            <Default>[today]</Default>
+        </Field>
+        <Field DisplayName="Poll End Date" StaticName="hcpPollDateEnd" Name="hcpPollDateEnd" ID="#guid#" Group="#groupname#" Type="DateTime" Format="DateOnly" />
+        <Field Type="Number" DisplayName="Sort Order" StaticName="hcpSortOrder" Name="hcpSortOrder" ID="#guid#" Group="#groupname#" Required="FALSE" Min="0" Max="9999" Decimals="2" />        
+        <SiteColumn Name="hcpPersonaGroups" Title="Persona Groups" Type="Taxonomy" IsRequired="0" IsMultiValue="1" TermGroup="~" TermSet="Persona Groups" TermReference="Persona Groups" />
+        <SiteColumn Name="hcpPersonaRoles" Title="Persona Roles" Type="Taxonomy" IsRequired="0" IsMultiValue="1" TermGroup="~" TermSet="Persona Roles" TermReference="Persona Roles" />
+    </SiteColumns>
+
+    <ContentTypes>
+        <ContentType Name="Connect Poll" Description="Connect Poll Master" Parent="Item">
+            <SiteColumn Reference="hcpPersonaGroups" />
+            <SiteColumn Reference="hcpPersonaRoles" />
+            <SiteColumn Reference="hcpPollDateStart" />
+            <SiteColumn Reference="hcpPollDateEnd" />
+        </ContentType>
+
+        <ContentType Name="Connect Poll Item" Description="Connect Poll Item" Parent="Item">
+            <SiteColumn Reference="hcpSortOrder" />
+        </ContentType>
+    </ContentTypes>
+
+
+    <Lists>
+        <List SiteUrl="/" Name="Connect Polls" Description="Connect Polls Master" Template="GenericList" AddContentTypes="Connect Poll" RemoveContentType="Item" ListGuruTable="Polls" />
+        <List SiteUrl="/" Name="Connect Poll Items" Description="Connect Poll Items" Template="GenericList" AddContentTypes="Connect Poll Item" RemoveContentType="Item" ListGuruTable="PollItems">
+            <Field ID="#guid#" Group="#groupname#" DisplayName="Connect Poll Lookup" Name="hcpPollLookup" StaticName="hcpPollLookup" Type="Lookup" Required="FALSE" EnforceUniqueValues="FALSE" List="Connect Polls" ShowField="Title" />
+        </List>
+    </Lists>
+</Portal>
