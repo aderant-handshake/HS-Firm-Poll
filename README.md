@@ -3,6 +3,12 @@
 ## Summary 
 This solution provides a way for a firm to diplay a simple multiple-choice question on a page. The user can choose an available answer to that question.  Once they have answered the question, they will see the firm wide results.  As the page is refreshed they will see updated answers to the current poll. 
 
+## Solution History
+| Date | Author | Description |
+| -------- | ------- | ------------------------ |
+| 2019 10/05 | S. McHargue | Initial Development |
+| 2020 07/09 | S. McHargue | Uploaded to GitHub Repository |
+
 ## Components 
 
 ### SharePoint Lists
@@ -52,8 +58,3 @@ After user response
 ![connect-poll-archive](blob/master/images/connect-poll-archive.png)
 
 > Connect-Poll-Response is displayed in the archive grid above 
-
-## Solution History
-| Date | Author | Description |
-| -------- | ------- | ------------------------ |
-| 2019 10/05 | S. McHargue | Initial Development |
